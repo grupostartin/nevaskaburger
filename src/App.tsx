@@ -1,11 +1,22 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import { useJsApiLoader } from '@react-google-maps/api';
+import { useMenuStore } from './store/menuStore';
+import { useSettingsStore } from './store/settingsStore';
 
 const libraries: ("places")[] = ["places"];
 
 export default function App() {
+  const fetchMenu = useMenuStore(state => state.fetchMenu);
+  const fetchSettings = useSettingsStore(state => state.fetchSettings);
+
+  useEffect(() => {
+    fetchMenu();
+    fetchSettings();
+  }, [fetchMenu, fetchSettings]);
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries

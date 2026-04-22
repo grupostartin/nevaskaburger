@@ -8,21 +8,16 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ onProductClick }: ProductGridProps) {
-  const [isLoading, setIsLoading] = useState(true);
   const items = useMenuStore(state => state.items);
   const categories = useMenuStore(state => state.categories);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
+  const isLoading = useMenuStore(state => state.isLoading);
 
   return (
     <div className="container mx-auto px-4 py-8 pb-32">
       {categories.map(category => {
-        const categoryItems = items.filter(item => item.categoryId === category.id);
+        const categoryItems = items
+          .filter(item => item.categoryId === category.id)
+          .sort((a, b) => Number(a.price) - Number(b.price));
         
         if (categoryItems.length === 0) return null;
 

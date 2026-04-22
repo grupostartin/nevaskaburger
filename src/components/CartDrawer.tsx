@@ -11,7 +11,7 @@ const RESTAURANT_NAME = "NEVASKA";
 
 export function CartDrawer() {
   const { items, isCartOpen, setCartOpen, removeItem, getCartTotal, clearCart } = useCartStore();
-  const { baseDeliveryFee, deliveryFeePerKm, minOrderValue } = useSettingsStore();
+  const { baseDeliveryFee, deliveryFeePerKm, minOrderValue, freeDeliveryRadius } = useSettingsStore();
 
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
@@ -20,7 +20,7 @@ export function CartDrawer() {
   const [observations, setObservations] = useState('');
 
   const deliveryFee = deliveryDistance !== null 
-    ? baseDeliveryFee + (deliveryDistance * deliveryFeePerKm)
+    ? (deliveryDistance <= freeDeliveryRadius ? 0 : baseDeliveryFee + (deliveryDistance * deliveryFeePerKm))
     : 0;
 
   const totalWithDelivery = getCartTotal() + deliveryFee;
@@ -188,7 +188,7 @@ export function CartDrawer() {
                 </span>
                 <span className="text-white">
                   {deliveryDistance !== null 
-                    ? `R$ ${deliveryFee.toFixed(2).replace('.', ',')}` 
+                    ? (deliveryFee === 0 ? <span className="text-[#25D366] font-bold">GRÁTIS</span> : `R$ ${deliveryFee.toFixed(2).replace('.', ',')}`)
                     : <span className="text-[10px] uppercase text-[#555]">Calculado no endereço</span>}
                 </span>
               </div>
