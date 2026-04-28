@@ -6,29 +6,29 @@ import { ShoppingBag, Trash2, MapPin, Truck, Banknote, CreditCard, Smartphone, W
 import { Input } from '@/components/ui/input';
 import { AddressAutocomplete } from './AddressAutocomplete';
 
-const WHATSAPP_NUMBER = "5531980269995";
+const WHATSAPP_NUMBER = "5531982388036";
 const RESTAURANT_NAME = "NEVASKA HAMBURGUER";
 
 type PaymentMethod = 'dinheiro' | 'debito' | 'credito' | 'pix' | '';
 
 const paymentOptions: { id: PaymentMethod; label: string; icon: any; color: string }[] = [
   { id: 'dinheiro', label: 'Dinheiro', icon: Banknote, color: '#25D366' },
-  { id: 'debito',   label: 'Débito',   icon: CreditCard, color: '#3B82F6' },
-  { id: 'credito',  label: 'Crédito',  icon: Wallet,     color: '#A78BFA' },
-  { id: 'pix',      label: 'PIX',      icon: Smartphone, color: '#00BFFF' },
+  { id: 'debito', label: 'Débito', icon: CreditCard, color: '#3B82F6' },
+  { id: 'credito', label: 'Crédito', icon: Wallet, color: '#A78BFA' },
+  { id: 'pix', label: 'PIX', icon: Smartphone, color: '#00BFFF' },
 ];
 
 export function CartDrawer() {
   const { items, isCartOpen, setCartOpen, removeItem, getCartTotal, clearCart } = useCartStore();
   const { baseDeliveryFee, deliveryFeePerKm, minOrderValue, freeDeliveryRadius } = useSettingsStore();
 
-  const [customerName, setCustomerName]       = useState('');
-  const [customerPhone, setCustomerPhone]     = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [deliveryDistance, setDeliveryDistance] = useState<number | null>(null);
-  const [observations, setObservations]       = useState('');
-  const [paymentMethod, setPaymentMethod]     = useState<PaymentMethod>('');
-  const [changeFor, setChangeFor]             = useState('');
+  const [observations, setObservations] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('');
+  const [changeFor, setChangeFor] = useState('');
 
   const deliveryFee = deliveryDistance !== null
     ? (deliveryDistance <= freeDeliveryRadius ? 0 : baseDeliveryFee + (deliveryDistance * deliveryFeePerKm))
@@ -65,9 +65,9 @@ Frete: ${deliveryFee === 0 ? 'GRATIS' : `R$ ${deliveryFee.toFixed(2).replace('.'
 *TOTAL: R$ ${totalWithDelivery.toFixed(2).replace('.', ',')}*
 
 *PAGAMENTO*
-Metodo: ${paymentMethod === 'dinheiro' 
-  ? `Dinheiro ${changeFor ? `(Troco para R$ ${changeFor})` : '(Sem troco)'}` 
-  : paymentMethod === 'pix' ? 'PIX' : `Cartao de ${paymentMethod === 'debito' ? 'Debito' : 'Credito'}`}
+Metodo: ${paymentMethod === 'dinheiro'
+        ? `Dinheiro ${changeFor ? `(Troco para R$ ${changeFor})` : '(Sem troco)'}`
+        : paymentMethod === 'pix' ? 'PIX' : `Cartao de ${paymentMethod === 'debito' ? 'Debito' : 'Credito'}`}
 
 ${observations.trim() ? `\n*OBSERVACOES GERAIS*\n${observations.trim()}` : ''}
 
@@ -204,11 +204,10 @@ Pedido enviado pelo site Nevaska Hamburguer`;
                           key={opt.id}
                           type="button"
                           onClick={() => { setPaymentMethod(opt.id); setChangeFor(''); }}
-                          className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all ${
-                            isSelected
+                          className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all ${isSelected
                               ? 'border-[#7C3AED] bg-[#7C3AED]/20 text-white'
                               : 'border-[#2A2A2A] bg-[#1A1A1A] text-[#A1A1AA] hover:border-[#7C3AED]/50 hover:text-white'
-                          }`}
+                            }`}
                         >
                           <Icon size={14} style={{ color: isSelected ? opt.color : undefined }} />
                           {opt.label}
