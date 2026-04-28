@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/compone
 import { Minus, Plus, ShoppingBag } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
 import { useSettingsStore } from '../store/settingsStore';
+import { useMenuStore } from '../store/menuStore';
 import { toast } from 'sonner';
 
 interface ProductModalProps {
@@ -15,6 +16,7 @@ interface ProductModalProps {
 export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
   const { addItem, setCartOpen } = useCartStore();
   const { globalAddons } = useSettingsStore();
+  const { categories } = useMenuStore();
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string | string[]>>({});
   const [itemObservation, setItemObservation] = useState('');
@@ -24,6 +26,15 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
     if (!product) return [];
     
     const options = [...(product.options || [])];
+    
+    // Check if category is "suco" or "bebida" to skip automatic options
+    const category = categories.find(c => c.id === product.categoryId);
+    const categoryTitle = category?.title.toLowerCase() || '';
+    const isDrinkOrJuice = categoryTitle.includes('bebida') || categoryTitle.includes('suco');
+
+    if (isDrinkOrJuice) {
+      return options;
+    }
     
     // 1. DYNAMIC REMOVAL: Ensure "Retirar Ingredientes" has all items from description
     if (product.description) {
@@ -90,7 +101,7 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
     }
     
     return options;
-  }, [product, globalAddons]);
+  }, [product, globalAddons, categories]);
 
   // Reset state when product changes
   useEffect(() => {
