@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Product, CartItem, CartItemOption } from '../types';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Minus, Plus, ShoppingBag } from 'lucide-react';
@@ -14,6 +15,7 @@ interface ProductModalProps {
 }
 
 export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
+  const navigate = useNavigate();
   const { addItem, setCartOpen } = useCartStore();
   const { globalAddons } = useSettingsStore();
   const { categories } = useMenuStore();
@@ -220,7 +222,7 @@ export function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
         icon: '🍔',
         action: {
           label: 'Ver Carrinho',
-          onClick: () => setCartOpen(true)
+          onClick: () => navigate('/checkout')
         }
       });
     }

@@ -1,10 +1,15 @@
-import { ShoppingBag, Settings } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function Header() {
+  const navigate = useNavigate();
   const { getCartItemsCount, setCartOpen } = useCartStore();
   const count = getCartItemsCount();
+
+  const handleCartClick = () => {
+    navigate('/checkout');
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full h-[100px] bg-[#0A0A0A] border-b border-[#2A2A2A] flex items-center justify-center shrink-0">
@@ -16,7 +21,7 @@ export function Header() {
       </div>
 
       <button
-        onClick={() => setCartOpen(true)}
+        onClick={handleCartClick}
         className="absolute right-4 md:right-[30px] top-1/2 -translate-y-1/2 bg-[#1A1A1A] p-[12px] rounded-xl border border-[#2A2A2A] text-white hover:text-[#A78BFA] transition-colors"
       >
         <ShoppingBag size={24} />

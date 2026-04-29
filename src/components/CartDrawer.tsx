@@ -31,7 +31,7 @@ export function CartDrawer() {
   const [changeFor, setChangeFor] = useState('');
 
   const deliveryFee = deliveryDistance !== null
-    ? (deliveryDistance <= freeDeliveryRadius ? 0 : baseDeliveryFee + (deliveryDistance * deliveryFeePerKm))
+    ? (deliveryDistance <= freeDeliveryRadius ? 3 : baseDeliveryFee + (deliveryDistance * deliveryFeePerKm))
     : 0;
 
   const totalWithDelivery = getCartTotal() + deliveryFee;
@@ -60,7 +60,7 @@ ${item.observation ? `Obs: ${item.observation}` : ''}`).join('\n\n')}
 
 -----------------------------
 Subtotal: R$ ${getCartTotal().toFixed(2).replace('.', ',')}
-Frete: ${deliveryFee === 0 ? 'GRATIS' : `R$ ${deliveryFee.toFixed(2).replace('.', ',')}`}
+Frete: R$ ${deliveryFee.toFixed(2).replace('.', ',')}
 
 *TOTAL: R$ ${totalWithDelivery.toFixed(2).replace('.', ',')}*
 
@@ -205,8 +205,8 @@ Pedido enviado pelo site Nevaska Hamburguer`;
                           type="button"
                           onClick={() => { setPaymentMethod(opt.id); setChangeFor(''); }}
                           className={`flex items-center gap-2 px-3 py-2.5 rounded-xl border text-[12px] font-bold transition-all ${isSelected
-                              ? 'border-[#7C3AED] bg-[#7C3AED]/20 text-white'
-                              : 'border-[#2A2A2A] bg-[#1A1A1A] text-[#A1A1AA] hover:border-[#7C3AED]/50 hover:text-white'
+                            ? 'border-[#7C3AED] bg-[#7C3AED]/20 text-white'
+                            : 'border-[#2A2A2A] bg-[#1A1A1A] text-[#A1A1AA] hover:border-[#7C3AED]/50 hover:text-white'
                             }`}
                         >
                           <Icon size={14} style={{ color: isSelected ? opt.color : undefined }} />
@@ -249,7 +249,7 @@ Pedido enviado pelo site Nevaska Hamburguer`;
                 </span>
                 <span className="text-white">
                   {deliveryDistance !== null
-                    ? (deliveryFee === 0 ? <span className="text-[#25D366] font-bold">GRÁTIS</span> : `R$ ${deliveryFee.toFixed(2).replace('.', ',')}`)
+                    ? `R$ ${deliveryFee.toFixed(2).replace('.', ',')}`
                     : <span className="text-[10px] uppercase text-[#555]">Calculado no endereço</span>}
                 </span>
               </div>

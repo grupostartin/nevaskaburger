@@ -4,7 +4,6 @@ import { Header } from '../components/Header';
 import { CategoryTabs } from '../components/CategoryTabs';
 import { ProductGrid } from '../components/ProductGrid';
 import { ProductModal } from '../components/ProductModal';
-import { CartDrawer } from '../components/CartDrawer';
 import { MobileCartButton } from '../components/MobileCartButton';
 import { Product } from '../types';
 import { Toaster } from 'sonner';
@@ -36,8 +35,6 @@ export default function Home() {
         isOpen={selectedProduct !== null} 
         onClose={() => setSelectedProduct(null)} 
       />
-      
-      <CartDrawer />
       
       <Toaster position="top-left" expand={false} richColors />
     </>

@@ -24,7 +24,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   minOrderValue: 20.00,
   freeDeliveryRadius: 0,
   restaurantAddress: 'R. Tamboril, 800 - Concórdia, Belo Horizonte - MG, 31110-640',
-  restaurantCoords: { lat: -19.905634, lng: -43.931818 },
+  restaurantCoords: { lat: -19.899247, lng: -43.938688 },
   globalIngredients: [],
   globalAddons: [],
   globalDrinks: [],

@@ -838,8 +838,8 @@ export default function Admin() {
                   <input 
                     type="number"
                     step="0.01"
-                    value={localSettings.baseDeliveryFee}
-                    onChange={e => setLocalSettings(prev => ({ ...prev, baseDeliveryFee: Number(e.target.value) }))}
+                    value={localSettings.baseDeliveryFee || ''}
+                    onChange={e => setLocalSettings(prev => ({ ...prev, baseDeliveryFee: e.target.value === '' ? 0 : Number(e.target.value) }))}
                     className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-4 py-2 focus:border-[#7C3AED] outline-none"
                   />
                 </div>
@@ -848,27 +848,28 @@ export default function Admin() {
                   <input 
                     type="number"
                     step="0.10"
-                    value={localSettings.deliveryFeePerKm}
-                    onChange={e => setLocalSettings(prev => ({ ...prev, deliveryFeePerKm: Number(e.target.value) }))}
+                    value={localSettings.deliveryFeePerKm || ''}
+                    onChange={e => setLocalSettings(prev => ({ ...prev, deliveryFeePerKm: e.target.value === '' ? 0 : Number(e.target.value) }))}
                     className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-4 py-2 focus:border-[#7C3AED] outline-none"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm text-[#A1A1AA]">Frete Grátis (km)</label>
+                  <label className="text-sm text-[#A1A1AA]">Frete Promoção 3$ (km)</label>
                   <input 
                     type="number"
                     step="0.1"
-                    value={localSettings.freeDeliveryRadius}
-                    onChange={e => setLocalSettings(prev => ({ ...prev, freeDeliveryRadius: Number(e.target.value) }))}
+                    value={localSettings.freeDeliveryRadius || ''}
+                    onChange={e => setLocalSettings(prev => ({ ...prev, freeDeliveryRadius: e.target.value === '' ? 0 : Number(e.target.value) }))}
                     className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-4 py-2 focus:border-[#7C3AED] outline-none border-[#25D366]/30 text-[#25D366]"
                   />
+                  <p className="text-[10px] text-[#555] italic mt-1">Dentro deste raio, o frete será fixo em R$ 3,00.</p>
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm text-[#A1A1AA]">Pedido Mínimo (R$)</label>
                   <input 
                     type="number"
-                    value={localSettings.minOrderValue}
-                    onChange={e => setLocalSettings(prev => ({ ...prev, minOrderValue: Number(e.target.value) }))}
+                    value={localSettings.minOrderValue || ''}
+                    onChange={e => setLocalSettings(prev => ({ ...prev, minOrderValue: e.target.value === '' ? 0 : Number(e.target.value) }))}
                     className="w-full bg-[#0A0A0A] border border-[#2A2A2A] rounded-lg px-4 py-2 focus:border-[#7C3AED] outline-none"
                   />
                 </div>

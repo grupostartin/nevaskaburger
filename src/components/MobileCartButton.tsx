@@ -2,9 +2,11 @@ import { useEffect, useRef } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { ShoppingCart } from 'lucide-react';
 import { useCartStore } from '../store/cartStore';
+import { useNavigate } from 'react-router-dom';
 
 export function MobileCartButton() {
-  const { getCartItemsCount, getCartTotal, setCartOpen } = useCartStore();
+  const navigate = useNavigate();
+  const { getCartItemsCount, getCartTotal } = useCartStore();
   const count = getCartItemsCount();
   const total = getCartTotal();
   const controls = useAnimation();
@@ -27,7 +29,7 @@ export function MobileCartButton() {
     <div className="fixed bottom-0 left-0 right-0 p-4 md:hidden z-30 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/95 to-transparent pt-12 pointer-events-none">
       <motion.button
         animate={controls}
-        onClick={() => setCartOpen(true)}
+        onClick={() => navigate('/checkout')}
         className="w-full bg-[#7C3AED] text-white font-bold py-4 px-6 rounded-xl shadow-[0_0_25px_rgba(124,58,237,0.4)] flex items-center justify-between pointer-events-auto"
       >
         <div className="flex items-center gap-3">

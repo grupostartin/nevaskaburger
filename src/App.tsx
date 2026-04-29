@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
+import Checkout from './pages/Checkout';
 import { useJsApiLoader } from '@react-google-maps/api';
 import { useMenuStore } from './store/menuStore';
 import { useSettingsStore } from './store/settingsStore';
@@ -28,6 +29,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/adm" element={<Admin />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       ) : (
         <div className="min-h-screen flex items-center justify-center">
